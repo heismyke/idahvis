@@ -1,5 +1,4 @@
 'use client'
-
 import Link from 'next/link'
 import React from 'react'
 import { motion } from 'framer-motion'
@@ -16,7 +15,9 @@ const Header = () => {
           </div>
         </h1>
         <Link href="/contact">
-          <button className="bg-[#143D60] p-2 rounded-lg text-white font-medium">let's talk</button>
+          <button className="bg-[#143D60] p-2 rounded-lg text-white font-medium">
+            let&apos;s talk
+          </button>
         </Link>
       </div>
       <header className="flex items-center justify-center py-8 md:py-12 lg:py-16 px-4 sm:px-6">
@@ -36,7 +37,6 @@ const Header = () => {
           >
             We deliver quality projects on schedule using innovative cost-effective solutions
           </motion.h1>
-
           <motion.p
             className="mt-8 text-neutral-600 text-base md:text-lg leading-relaxed tracking-tight max-w-prose mx-auto md:mx-0 md:max-w-2xl lg:max-w-3xl xl:max-w-4xl"
             initial={{ opacity: 0, x: 30 }}
@@ -44,12 +44,12 @@ const Header = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            I'm a Product Design Leader with over 20 years of experience in leading teams at
-            companies such as Farfetch, Just Eat, GetYourGuide, and Fresha. As a designer, I've
+            I&apos;m a Product Design Leader with over 20 years of experience in leading teams at
+            companies such as Farfetch, Just Eat, GetYourGuide, and Fresha. As a designer, I&apos;ve
             helped start-ups figure out what they should be building and transform their vision into
-            real products that went on to receive millions in funding. As a leader & manager, I've
-            helped large orgs build happy & successful teams, and provided the right environment for
-            designers to do the best work of their career.
+            real products that went on to receive millions in funding. As a leader & manager,
+            I&apos;ve helped large orgs build happy & successful teams, and provided the right
+            environment for designers to do the best work of their career.
           </motion.p>
         </motion.div>
       </header>
