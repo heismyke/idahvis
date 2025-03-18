@@ -80,7 +80,7 @@ const ContactSection = () => {
                 </label>
                 <textarea
                   id="message"
-                  rows="4"
+                  rows={4}
                   className="w-full p-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
                   placeholder="Your message"
                 ></textarea>

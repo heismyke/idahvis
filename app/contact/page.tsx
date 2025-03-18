@@ -115,7 +115,7 @@ const Contact = () => {
                 </label>
                 <textarea
                   id="message"
-                  rows="6"
+                  rows={6}
                   className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
                   placeholder="Your message"
                   required
