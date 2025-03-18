@@ -26,7 +26,7 @@ const Header = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          PORT HARCOURT, NIGERIA
+          NIGERIA
           <div className="relative flex h-[10px] w-[10px] items-center justify-center">
             <div className="absolute h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></div>
             <div className="h-[10px] w-[10px] rounded-full bg-green-600"></div>

@@ -24,7 +24,7 @@ export default function Navigation() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed bottom-7 w-full font-ubuntu flex items-center justify-center">
+    <nav className="fixed z-10 bottom-7 w-full font-ubuntu flex items-center justify-center">
       <ul className="flex gap-2 bg-white/70 shadow-sm rounded-full p-2 border-[#143D60] border">
         {links.map((link) => {
           const isActive = pathname === link.href
