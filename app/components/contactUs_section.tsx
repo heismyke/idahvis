@@ -14,8 +14,8 @@ const ContactSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
             <p className="text-gray-700 mb-8">
-              We'd love to hear from you. Whether you have a question about our services, projects,
-              or anything else, our team is ready to answer all your questions.
+              We&apos;d love to hear from you. Whether you have a question about our services,
+              projects, or anything else, our team is ready to answer all your questions.
             </p>
 
             <div className="space-y-4">

@@ -11,7 +11,7 @@ const About = () => {
             <h2 className="text-2xl font-semibold mb-4">Company Profile</h2>
             <p className="text-gray-700 mb-4">
               IDAHVIS NIGERIA LIMITED was incorporated in 2017 under the companies and Allied
-              Matters Act of 1990 with RC Number "1451843". We are a wholly indigenous
+              Matters Act of 1990 with RC Number &quot;1451843&quot;. We are a wholly indigenous
               multidisciplinary consulting company specialized in Project Management & Construction
               Consultancy, Information Technology/Technological Services, General Contracts and
               Supplies with the unique capabilities of meeting the continuously changing
