@@ -3,7 +3,19 @@
 import React from 'react'
 import { motion, useInView } from 'framer-motion'
 
-const projects = [
+interface Project {
+  title: string
+  client: string
+  description: string
+  scope: string
+}
+
+interface ProjectCardProps {
+  project: Project
+  index: number
+}
+
+const projectsData = [
   {
     title: 'Acoustic Call Center',
     client: 'Port Harcourt Electricity Distribution Company',
@@ -70,12 +82,11 @@ const projects = [
   },
 ]
 
-const ProjectCard = ({ project, index }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   // Ref for the project card
-  const ref = React.useRef(null)
+  const ref = React.useRef<HTMLDivElement>(null)
   // Check if the project card is in view
-  const isInView = useInView(ref, { once: true, threshold: 0.1 })
-
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
   // Determine if this project should have a row span or column span
   const isRowSpan = index % 5 === 0
   const isColSpan = index % 3 === 1
@@ -112,18 +123,16 @@ const ProjectCard = ({ project, index }) => {
   )
 }
 
-const Projects = () => {
+const Projects: React.FC = () => {
   return (
     <section className="py-16 bg-stone-50">
       <div className="container mx-auto px-4 max-w-5xl">
         <h1 className="text-4xl font-bold mb-12">Our Projects</h1>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
+          {projectsData.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
           ))}
         </div>
-
         <div className="mt-16 p-8 bg-stone-100">
           <h2 className="text-2xl font-semibold mb-4">Our Approach</h2>
           <p className="text-gray-700">
