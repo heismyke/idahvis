@@ -6,7 +6,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="w-full bg-[#143D60] rounded-3xl p-12 md:p-16 lg:p-20 text-white overflow-hidden relative">
+    <footer className="w-full bg-[#143D60] rounded-t-4xl p-12 md:p-16 lg:p-20 text-white overflow-hidden relative">
       <div className="max-w-6xl mx-auto">
         {/* Abstract graphic element */}
         <div className="absolute top-0 right-0 w-64 h-64 opacity-10">
@@ -19,7 +19,9 @@ const Footer = () => {
         {/* Main content */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16 relative z-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Let's create something together</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Let&apos;s create something together
+            </h2>
             <p className="text-white/70 mb-8 max-w-md">
               We bring ideas to life through technology, innovation, and a relentless pursuit of
               excellence.
