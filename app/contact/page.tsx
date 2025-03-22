@@ -8,11 +8,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 // Define Zod schema for form validation
 const contactFormSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().min(1, "Email is required").email("Invalid email format"),
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().min(1, 'Email is required').email('Invalid email format'),
   phone: z.string().optional(),
-  subject: z.string().min(1, "Subject is required"),
-  message: z.string().min(10, "Message must be at least 10 characters long"),
+  subject: z.string().min(1, 'Subject is required'),
+  message: z.string().min(10, 'Message must be at least 10 characters long'),
 })
 
 // Type inference from schema
@@ -28,16 +28,16 @@ const Contact = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: ""
-    }
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: '',
+    },
   })
 
   // Form submission handler for API Gateway
@@ -45,13 +45,14 @@ const Contact = () => {
     setIsSubmitting(true)
     setSubmitSuccess(null)
     setErrorMessage(null)
-    
+
     try {
       // API Gateway endpoint - replace with your actual endpoint
       const apiGatewayUrl = 'https://xs1y905ufi.execute-api.eu-north-1.amazonaws.com/prod/message'
-      
+
       const response = await fetch(apiGatewayUrl, {
         method: 'POST',
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
           // Add any API keys or authorization headers if needed
@@ -60,7 +61,7 @@ const Contact = () => {
         body: JSON.stringify({
           Name: data.name,
           Email: data.email,
-          Phone: data.phone || "",
+          Phone: data.phone || '',
           Subject: data.subject,
           Message: data.message,
         }),
@@ -145,20 +146,20 @@ const Contact = () => {
 
           <div className="bg-white p-8 shadow-md">
             <h2 className="text-2xl font-semibold mb-6">Send us a Message</h2>
-            
+
             {submitSuccess === true && (
               <div className="mb-6 p-4 bg-green-100 text-green-800 border border-green-200 rounded">
                 Thank you! Your message has been sent successfully. We'll get back to you soon.
               </div>
             )}
-            
+
             {submitSuccess === false && (
               <div className="mb-6 p-4 bg-red-100 text-red-800 border border-red-200 rounded">
                 <p>Sorry, there was a problem sending your message.</p>
                 {errorMessage && <p className="text-sm mt-1">{errorMessage}</p>}
               </div>
             )}
-            
+
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="name">
@@ -167,15 +168,15 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
-                  {...register("name")}
-                  className={`w-full p-3 border ${errors.name ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-1 focus:ring-black`}
+                  {...register('name')}
+                  className={`w-full p-3 border ${
+                    errors.name ? 'border-red-500' : 'border-gray-300'
+                  } focus:outline-none focus:ring-1 focus:ring-black`}
                   placeholder="Your full name"
                 />
-                {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-                )}
+                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="email">
                   Email
@@ -183,15 +184,17 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
-                  {...register("email")}
-                  className={`w-full p-3 border ${errors.email ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-1 focus:ring-black`}
+                  {...register('email')}
+                  className={`w-full p-3 border ${
+                    errors.email ? 'border-red-500' : 'border-gray-300'
+                  } focus:outline-none focus:ring-1 focus:ring-black`}
                   placeholder="Your email address"
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
                 )}
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="phone">
                   Phone (optional)
@@ -199,7 +202,7 @@ const Contact = () => {
                 <input
                   type="tel"
                   id="phone"
-                  {...register("phone")}
+                  {...register('phone')}
                   className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
                   placeholder="Your phone number"
                 />
@@ -207,7 +210,7 @@ const Contact = () => {
                   <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
                 )}
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="subject">
                   Subject
@@ -215,15 +218,17 @@ const Contact = () => {
                 <input
                   type="text"
                   id="subject"
-                  {...register("subject")}
-                  className={`w-full p-3 border ${errors.subject ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-1 focus:ring-black`}
+                  {...register('subject')}
+                  className={`w-full p-3 border ${
+                    errors.subject ? 'border-red-500' : 'border-gray-300'
+                  } focus:outline-none focus:ring-1 focus:ring-black`}
                   placeholder="Subject of your message"
                 />
                 {errors.subject && (
                   <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>
                 )}
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="message">
                   Message
@@ -231,15 +236,17 @@ const Contact = () => {
                 <textarea
                   id="message"
                   rows={6}
-                  {...register("message")}
-                  className={`w-full p-3 border ${errors.message ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-1 focus:ring-black`}
+                  {...register('message')}
+                  className={`w-full p-3 border ${
+                    errors.message ? 'border-red-500' : 'border-gray-300'
+                  } focus:outline-none focus:ring-1 focus:ring-black`}
                   placeholder="Your message"
                 />
                 {errors.message && (
                   <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
                 )}
               </div>
-              
+
               <button
                 type="submit"
                 disabled={isSubmitting}
