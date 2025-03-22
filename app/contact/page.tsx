@@ -1,7 +1,91 @@
-import React from 'react'
-import { Mail, Phone, MapPin, Building, User } from 'lucide-react'
+'use client'
+
+import React, { useState } from 'react'
+import { Mail, Phone, MapPin, Building, User, Loader2 } from 'lucide-react'
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+// Define Zod schema for form validation
+const contactFormSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().min(1, "Email is required").email("Invalid email format"),
+  phone: z.string().optional(),
+  subject: z.string().min(1, "Subject is required"),
+  message: z.string().min(10, "Message must be at least 10 characters long"),
+})
+
+// Type inference from schema
+type ContactFormData = z.infer<typeof contactFormSchema>
 
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitSuccess, setSubmitSuccess] = useState<boolean | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  // Initialize react-hook-form with zod validation
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: ""
+    }
+  })
+
+  // Form submission handler for API Gateway
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true)
+    setSubmitSuccess(null)
+    setErrorMessage(null)
+    
+    try {
+      // API Gateway endpoint - replace with your actual endpoint
+      const apiGatewayUrl = 'https://xs1y905ufi.execute-api.eu-north-1.amazonaws.com/prod/message'
+      
+      const response = await fetch(apiGatewayUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any API keys or authorization headers if needed
+          // 'x-api-key': 'your-api-key-here',
+        },
+        body: JSON.stringify({
+          Name: data.name,
+          Email: data.email,
+          Phone: data.phone || "",
+          Subject: data.subject,
+          Message: data.message,
+        }),
+      })
+
+      // Parse the response
+      const responseData = await response.json()
+
+      if (!response.ok) {
+        throw new Error(responseData.error || responseData.message || 'Failed to submit form')
+      }
+
+      // Handle success
+      setSubmitSuccess(true)
+      reset() // Clear form
+    } catch (error) {
+      // Handle error
+      setSubmitSuccess(false)
+      setErrorMessage(error instanceof Error ? error.message : 'An unknown error occurred')
+      console.error('Form submission error:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <section className="py-16 bg-stone-50">
       <div className="container mx-auto px-4 max-w-5xl">
@@ -61,7 +145,21 @@ const Contact = () => {
 
           <div className="bg-white p-8 shadow-md">
             <h2 className="text-2xl font-semibold mb-6">Send us a Message</h2>
-            <form className="space-y-6">
+            
+            {submitSuccess === true && (
+              <div className="mb-6 p-4 bg-green-100 text-green-800 border border-green-200 rounded">
+                Thank you! Your message has been sent successfully. We'll get back to you soon.
+              </div>
+            )}
+            
+            {submitSuccess === false && (
+              <div className="mb-6 p-4 bg-red-100 text-red-800 border border-red-200 rounded">
+                <p>Sorry, there was a problem sending your message.</p>
+                {errorMessage && <p className="text-sm mt-1">{errorMessage}</p>}
+              </div>
+            )}
+            
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="name">
                   Name
@@ -69,11 +167,15 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
-                  className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
+                  {...register("name")}
+                  className={`w-full p-3 border ${errors.name ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-1 focus:ring-black`}
                   placeholder="Your full name"
-                  required
                 />
+                {errors.name && (
+                  <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                )}
               </div>
+              
               <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="email">
                   Email
@@ -81,11 +183,15 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
-                  className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
+                  {...register("email")}
+                  className={`w-full p-3 border ${errors.email ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-1 focus:ring-black`}
                   placeholder="Your email address"
-                  required
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                )}
               </div>
+              
               <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="phone">
                   Phone (optional)
@@ -93,10 +199,15 @@ const Contact = () => {
                 <input
                   type="tel"
                   id="phone"
+                  {...register("phone")}
                   className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
                   placeholder="Your phone number"
                 />
+                {errors.phone && (
+                  <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+                )}
               </div>
+              
               <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="subject">
                   Subject
@@ -104,11 +215,15 @@ const Contact = () => {
                 <input
                   type="text"
                   id="subject"
-                  className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
+                  {...register("subject")}
+                  className={`w-full p-3 border ${errors.subject ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-1 focus:ring-black`}
                   placeholder="Subject of your message"
-                  required
                 />
+                {errors.subject && (
+                  <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>
+                )}
               </div>
+              
               <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="message">
                   Message
@@ -116,16 +231,28 @@ const Contact = () => {
                 <textarea
                   id="message"
                   rows={6}
-                  className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
+                  {...register("message")}
+                  className={`w-full p-3 border ${errors.message ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-1 focus:ring-black`}
                   placeholder="Your message"
-                  required
-                ></textarea>
+                />
+                {errors.message && (
+                  <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
+                )}
               </div>
+              
               <button
                 type="submit"
-                className="bg-black text-white px-6 py-3 hover:bg-gray-800 transition-colors duration-300"
+                disabled={isSubmitting}
+                className="bg-black text-white px-6 py-3 hover:bg-gray-800 transition-colors duration-300 disabled:bg-gray-400 flex items-center justify-center"
               >
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="animate-spin mr-2 h-4 w-4" />
+                    Sending...
+                  </>
+                ) : (
+                  'Send Message'
+                )}
               </button>
             </form>
           </div>
