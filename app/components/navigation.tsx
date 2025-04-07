@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { RiHome7Fill, RiMenuLine } from 'react-icons/ri'
+import { RiHome7Fill } from 'react-icons/ri'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
