@@ -16,6 +16,7 @@ const links: Links[] = [
   { href: '/', label: 'HOME', icon: RiHome7Fill },
   { href: '/about', label: 'ABOUT' },
   { href: '/services', label: 'SERVICES' },
+  { href: '/products', label: 'PRODUCTS' },
   { href: '/projects', label: 'PROJECTS' },
   { href: '/contact', label: 'CONTACT' },
 ]
