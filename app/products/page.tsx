@@ -1,5 +1,7 @@
 'use client'
 
+'use client'
+
 import Image from 'next/image'
 import React, { useState } from 'react'
 
@@ -15,6 +17,7 @@ const Products = () => {
       shortDesc: 'Ultra HD security camera with night vision',
       image: '/camera1.jpg',
       price: '$299.99',
+      available: true,
       fullDescription:
         'The ProGuard 4K offers unmatched clarity with its Ultra HD resolution. Equipped with advanced night vision technology, this camera provides crystal clear footage day and night. Its weatherproof design makes it suitable for both indoor and outdoor installations, while the built-in motion detection system sends instant alerts to your mobile device.',
       features: [
@@ -33,6 +36,7 @@ const Products = () => {
       shortDesc: '360° coverage dome camera with AI detection',
       image: '/api/placeholder/300/300',
       price: '$249.99',
+      available: false,
       fullDescription:
         'The SecureView Dome provides full 360° surveillance coverage with its innovative rotating lens system. Powered by AI technology, it can distinguish between humans, animals, and vehicles to reduce false alarms. The sleek dome design blends seamlessly with any interior, making it perfect for retail spaces and office environments.',
       features: [
@@ -51,6 +55,7 @@ const Products = () => {
       shortDesc: 'Compact wireless camera for discreet monitoring',
       image: '/api/placeholder/300/300',
       price: '$149.99',
+      available: false,
       fullDescription:
         'The Guardian Mini packs powerful security features into a compact, discreet design. Perfect for monitoring small spaces or as a hidden camera, it can be easily installed anywhere thanks to its wireless connectivity and long-lasting battery. Despite its small size, it delivers sharp 1080p video and includes smart motion zones to focus on specific areas.',
       features: [
@@ -69,6 +74,7 @@ const Products = () => {
       shortDesc: 'Professional-grade PTZ camera with 30X zoom',
       image: '/api/placeholder/300/300',
       price: '$499.99',
+      available: false,
       fullDescription:
         'The PerimeterPro PTZ is our professional-grade security solution, featuring pan-tilt-zoom functionality with an impressive 30X optical zoom. Ideal for perimeter security of large properties, it can cover vast areas with a single camera. The auto-tracking feature follows detected movement, ensuring subjects remain in view at all times.',
       features: [
@@ -87,6 +93,7 @@ const Products = () => {
       shortDesc: 'Eco-friendly solar-powered wireless camera',
       image: '/api/placeholder/300/300',
       price: '$279.99',
+      available: false,
       fullDescription:
         'The SmartCam Solar offers true wireless freedom with its integrated solar panel that keeps the battery charged with just a few hours of sunlight. Perfect for remote locations without easy access to power, this camera delivers reliable security without the need for frequent battery changes or complicated wiring. Its efficient power management system ensures operation even during extended cloudy periods.',
       features: [
@@ -105,6 +112,7 @@ const Products = () => {
       shortDesc: 'Smart video doorbell with package detection',
       image: '/api/placeholder/300/300',
       price: '$189.99',
+      available: false,
       fullDescription:
         "The EntryGuard Doorbell transforms your front door security with intelligent package detection and visitor monitoring. Get instant alerts when packages are delivered or when someone approaches your door. With two-way audio and pre-recorded responses, you can communicate with visitors even when you're not home. The sleek design adds a modern touch to any entrance while providing crucial security features.",
       features: [
@@ -121,6 +129,10 @@ const Products = () => {
 
   // Handler for clicking on a product
   const handleProductClick = (id) => {
+    // Only allow clicking on available products
+    const product = products.find((p) => p.id === id)
+    if (!product.available) return
+
     // If already selected, unselect it (toggle behavior)
     if (selectedProduct === id) {
       setSelectedProduct(null)
@@ -145,19 +157,26 @@ const Products = () => {
           {products.map((product) => (
             <div
               key={product.id}
-              className={`border border-gray-200 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg ${
-                selectedProduct === product.id ? 'ring-2 ring-gray-600' : ''
-              }`}
+              className={`border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg ${
+                selectedProduct === product.id ? '' : ''
+              } ${product.available ? 'cursor-pointer' : 'opacity-75'}`}
               onClick={() => handleProductClick(product.id)}
             >
-              <div className="aspect-square bg-white">
+              <div className="aspect-square bg-white relative">
                 <Image
                   width={300}
                   height={300}
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  className={`w-full h-full object-cover ${!product.available ? 'opacity-50' : ''}`}
                 />
+                {!product.available && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="bg-black bg-opacity-70 text-white px-4 py-2 rounded-md font-semibold">
+                      COMING SOON
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="p-6 bg-white">
                 <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
@@ -172,7 +191,7 @@ const Products = () => {
         {selectedProduct && (
           <div className="mt-8 p-8 bg-white border border-gray-200 rounded-lg shadow-md animate-fadeIn">
             {products.map((product) => {
-              if (product.id === selectedProduct) {
+              if (product.id === selectedProduct && product.available) {
                 return (
                   <div
                     key={`detail-${product.id}`}
