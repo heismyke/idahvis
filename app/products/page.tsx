@@ -152,6 +152,8 @@ const Products = () => {
             >
               <div className="aspect-square bg-white">
                 <Image
+                  width={300}
+                  height={300}
                   src={product.image}
                   alt={product.name}
                   className="w-full h-full object-cover"
@@ -178,6 +180,8 @@ const Products = () => {
                   >
                     <div>
                       <Image
+                        width={600}
+                        height={600}
                         src={product.image}
                         alt={product.name}
                         className="w-full rounded-lg shadow"
