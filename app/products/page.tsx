@@ -37,7 +37,6 @@ const Products = () => {
       price: '$349',
       available: true,
       images: [
-        '/muti1.jpg',
         '/multipurposesocket.jpg',
         '/api/placeholder/600/600',
       ],
@@ -77,7 +76,6 @@ const Products = () => {
       price: '$249',
       available: true,
       images: [
-        '/microphone.jpg',
         '/api/placeholder/600/600',
         '/api/placeholder/600/600',
       ],
