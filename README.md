@@ -1,54 +1,61 @@
-# IDAHVIS NIGERIA LIMITED
+# IDAHVIS Nigeria Limited – Web Application & Backend
 
-**Established in 2017, IDAHVIS NIGERIA LIMITED** is a multidisciplinary consulting company committed to excellence in service delivery across multiple industries. We specialize in:
-
-- **Project Management**
-- **Construction Consultancy**
-- **Information Technology Services**
-- **General Contracts**
+**Project Type:** Client Work  
+**Client:** IDAHVIS Nigeria Limited  
+**Year:** 2024  
+**Role:** Full-Stack Developer (Frontend & Backend)
 
 ---
 
-## 🏗️ What We Do
+## 🏢 About the Client
 
-At IDAHVIS, we combine technical expertise with practical experience to provide high-quality, cost-effective solutions. Our services are tailored to meet the specific needs of each client and project.
+[IDAHVIS Nigeria Limited](#) is a multidisciplinary consulting firm established in 2017, specializing in:
 
-### 🔧 Core Services
+- Project Management
+- Construction Consultancy
+- Information Technology Services
+- General Contracts
 
-| Service Area            | Description                                                                 |
-|-------------------------|-----------------------------------------------------------------------------|
-| Project Management       | End-to-end project planning, execution, and delivery                       |
-| Construction Consultancy | Technical and strategic support for construction projects                  |
-| IT Services              | Customized technology solutions for modern business needs                  |
-| General Contracts        | Execution of diverse contracts with transparency and professionalism        |
+They are renowned for delivering superior services with unique value through cost-effective solutions and innovative approaches.
 
 ---
 
-## 👷 Our Team
+## 💻 Project Overview
 
-Our strength lies in a team of **highly skilled professionals** who are passionate about delivering value. With a blend of innovation and deep industry knowledge, we guarantee client satisfaction at every stage.
-
----
-
-## 💡 Why Choose Us?
-
-- ✅ Client-focused, result-driven approach  
-- ✅ Proven track record of successful project execution  
-- ✅ Innovative solutions tailored to unique challenges  
-- ✅ Commitment to quality, safety, and efficiency  
+This project involved developing a comprehensive web application and backend system to streamline IDAHVIS's operations. The solution aimed to enhance project management, client interactions, and internal workflows.
 
 ---
 
-## 📍 Contact Us
+## 🛠️ Technologies Used
 
-**IDAHVIS NIGERIA LIMITED**  
-📞 Phone: *[Insert contact number]*  
-📧 Email: *[Insert contact email]*  
-📍 Address: *[Insert company address]*  
-🌐 Website: *[Insert website URL]*
+- **Frontend:** React.js, HTML5, CSS3
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB
+- **Authentication:** JSON Web Tokens (JWT)
+- **Deployment:** Heroku
+- **Version Control:** Git & GitHub
 
 ---
 
-> Excellence. Innovation. Integrity.
+## 🔑 Key Features
+
+- **User Authentication:** Secure login and registration system
+- **Dashboard:** Real-time analytics and project tracking
+- **Project Management:** Create, update, and monitor projects
+- **Client Portal:** Clients can view project statuses and updates
+- **Responsive Design:** Optimized for desktop and mobile devices
+
+---
+
+## 🚀 Getting Started
+
+To run this project locally:
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/yourusername/idahvis-webapp.git
+   cd idahvis-webapp
+
 
 
