@@ -51,5 +51,5 @@ This project involved developing a comprehensive web application and backend sys
 ![Projects Page Screenshot](https://github.com/user-attachments/assets/61934ed3-44da-4b84-a58c-28fc6f151d13)
 ---
 
-## 📁 Project Structure
+
 
