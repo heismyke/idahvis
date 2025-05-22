@@ -1,4 +1,4 @@
-# IDAHVIS Nigeria Limited – Web Application Development
+# IDAHVIS Nigeria Limited 
 
 **Project Type:** Client Work  
 **Client:** IDAHVIS Nigeria Limited  
